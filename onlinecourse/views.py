@@ -129,7 +129,7 @@ def submit(request, course_id):
     submission = Submission.objects.create(enrollment=enrollment)
     submission.choices.set(submitted_anwsers)
     print(submission)
-    return  HttpResponseRedirect(reverse(viewname='onlinecourse:result', args=(course_id, submission.chocies.first().question.lesson.pk, submission.pk)))
+    return  HttpResponseRedirect(reverse(viewname='onlinecourse:result', args=(course_id, submission.choices.first().question.lesson.pk, submission.pk)))
 
 
 
@@ -145,7 +145,7 @@ def show_exam_result(request, course_id, lesson_id, submission_id):
     from django.db.models import Sum
     course = Course.objects.get(pk=course_id)
     submission = Submission.objects.get(pk=submission_id)
-    selected_choices = submission.chocies.all()
+    selected_choices = submission.choices.all()
 
     lesson = Lesson.objects.get(pk=lesson_id)
     questions = lesson.question_set.all()
